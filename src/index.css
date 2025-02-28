@@ -80,15 +80,15 @@
 
 @layer components {
   .accessible-button {
-    @apply text-xl p-6 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/50;
+    @apply text-lg md:text-xl p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/50;
   }
 
   .accessible-card {
-    @apply p-6 rounded-2xl bg-white shadow-lg transition-all duration-300 border border-border hover:shadow-xl;
+    @apply p-4 md:p-6 rounded-xl bg-white shadow-md transition-all duration-300 border border-border hover:shadow-lg;
   }
 
   .voice-indicator {
-    @apply w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300;
+    @apply w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300;
   }
   
   .voice-indicator.active {
@@ -147,4 +147,23 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 300ms, transform 300ms;
+}
+
+/* Font size adjustments for mobile */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .text-4xl-accessible {
+    font-size: 2rem;
+  }
+  
+  .text-3xl-accessible {
+    font-size: 1.75rem;
+  }
+  
+  .text-2xl-accessible {
+    font-size: 1.5rem;
+  }
 }

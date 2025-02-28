@@ -19,6 +19,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        'xs': '480px',
+      },
       fontSize: {
         "2xl-accessible": "1.75rem",
         "3xl-accessible": "2rem",
