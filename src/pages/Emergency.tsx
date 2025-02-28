@@ -9,30 +9,30 @@ const Emergency = () => {
   const { toast } = useToast();
   const [countdown, setCountdown] = useState<number | null>(null);
   const [emergencyContacts] = useState([
-    { name: "Emergency Services", number: "911", primary: true },
-    { name: "Dr. Johnson", number: "555-123-4567", primary: false },
-    { name: "Mary (Daughter)", number: "555-987-6543", primary: false },
-    { name: "John (Son)", number: "555-876-5432", primary: false },
+    { name: "அவசர சேவைகள்", number: "911", primary: true },
+    { name: "டாக்டர் ஜான்சன்", number: "555-123-4567", primary: false },
+    { name: "மேரி (மகள்)", number: "555-987-6543", primary: false },
+    { name: "ஜான் (மகன்)", number: "555-876-5432", primary: false },
   ]);
   
   // Simulating GPS location
   const [location] = useState({
-    address: "123 Main Street, Anytown, USA",
+    address: "123 மெயின் ஸ்ட்ரீட், ஏனிடவுன், அமெரிக்கா",
     coordinates: "37.7749° N, 122.4194° W"
   });
   
   // Simulating medical info
   const [medicalInfo] = useState({
-    conditions: ["Hypertension", "Type 2 Diabetes"],
-    allergies: ["Penicillin", "Shellfish"],
-    medications: ["Lisinopril 10mg", "Metformin 500mg", "Atorvastatin 20mg"],
+    conditions: ["உயர் இரத்த அழுத்தம்", "வகை 2 நீரிழிவு"],
+    allergies: ["பென்சிலின்", "கடல் உணவு"],
+    medications: ["லிசினோப்ரில் 10mg", "மெட்ஃபார்மின் 500mg", "அடோர்வாஸ்டாடின் 20mg"],
     bloodType: "A+"
   });
 
   const announceEmergencyPage = () => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(
-        "Emergency page loaded. Press the red emergency button to call for help, or select a contact from below."
+        "அவசர பக்கம் ஏற்றப்பட்டது. உதவி அழைக்க சிவப்பு அவசர பொத்தானை அழுத்தவும், அல்லது கீழே உள்ள தொடர்புகளிலிருந்து ஒன்றைத் தேர்ந்தெடுக்கவும்."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -55,15 +55,15 @@ const Emergency = () => {
     if (countdown <= 0) {
       // Simulate emergency call
       toast({
-        title: "Emergency Services Contacted",
-        description: "Your location and medical information have been shared.",
+        title: "அவசர சேவைகள் தொடர்பு கொள்ளப்பட்டன",
+        description: "உங்கள் இருப்பிடம் மற்றும் மருத்துவ தகவல்கள் பகிரப்பட்டுள்ளன.",
         variant: "default",
       });
       
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel(); // Cancel any ongoing speech
         const utterance = new SpeechSynthesisUtterance(
-          "Emergency services have been contacted. Help is on the way. Your location and medical information have been shared."
+          "அவசர சேவைகள் தொடர்பு கொள்ளப்பட்டன. உதவி வழியில் உள்ளது. உங்கள் இருப்பிடம் மற்றும் மருத்துவ தகவல்கள் பகிரப்பட்டுள்ளன."
         );
         utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
@@ -93,15 +93,15 @@ const Emergency = () => {
     setCountdown(5);
     
     toast({
-      title: "Emergency Call Initiated",
-      description: "Contacting emergency services in 5 seconds. Tap to cancel.",
+      title: "அவசர அழைப்பு தொடங்கப்பட்டது",
+      description: "5 வினாடிகளில் அவசர சேவைகளைத் தொடர்பு கொள்கிறது. ரத்து செய்ய தட்டவும்.",
       variant: "destructive",
     });
     
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel(); // Cancel any ongoing speech
       const utterance = new SpeechSynthesisUtterance(
-        "Emergency call initiated. Contacting emergency services in 5 seconds. Press cancel to stop."
+        "அவசர அழைப்பு தொடங்கப்பட்டது. 5 வினாடிகளில் அவசர சேவைகளைத் தொடர்பு கொள்கிறது. நிறுத்த ரத்து செய்யவும் பொத்தானை அழுத்தவும்."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -114,15 +114,15 @@ const Emergency = () => {
     setCountdown(null);
     
     toast({
-      title: "Emergency Call Cancelled",
-      description: "The emergency call has been cancelled.",
+      title: "அவசர அழைப்பு ரத்து செய்யப்பட்டது",
+      description: "அவசர அழைப்பு ரத்து செய்யப்பட்டது.",
       variant: "default",
     });
     
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel(); // Cancel any ongoing speech
       const utterance = new SpeechSynthesisUtterance(
-        "Emergency call has been cancelled."
+        "அவசர அழைப்பு ரத்து செய்யப்பட்டது."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -131,14 +131,14 @@ const Emergency = () => {
 
   const callContact = (name: string, number: string) => {
     toast({
-      title: `Calling ${name}`,
-      description: `Dialing ${number}...`,
+      title: `${name} அழைக்கிறது`,
+      description: `${number} டயல் செய்கிறது...`,
       variant: "default",
     });
     
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(
-        `Calling ${name} at ${number.split('').join(' ')}`
+        `${name} அழைக்கிறது, ${number.split('').join(' ')}`
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -149,10 +149,10 @@ const Emergency = () => {
     <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12">
       <section className="text-center">
         <h1 className="text-4xl-accessible font-bold tracking-tight text-destructive">
-          Emergency Assistance
+          அவசர உதவி
         </h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
-          Get help quickly in case of emergency
+          அவசர நிலையில் விரைவாக உதவி பெறுங்கள்
         </p>
       </section>
 
@@ -163,13 +163,13 @@ const Emergency = () => {
             onClick={initiateEmergencyCall}
           >
             <AlertCircle className="mr-4" size={32} />
-            Emergency Call
+            அவசர அழைப்பு
           </Button>
         ) : (
           <Card className="w-80 h-24 bg-destructive text-white flex items-center justify-center rounded-2xl shadow-lg animate-pulse">
             <CardContent className="flex items-center justify-between p-6 w-full">
               <div className="text-3xl-accessible font-bold">{countdown}</div>
-              <div className="text-2xl-accessible">Calling...</div>
+              <div className="text-2xl-accessible">அழைக்கிறது...</div>
               <Button 
                 variant="ghost" 
                 size="icon" 
@@ -188,7 +188,7 @@ const Emergency = () => {
           <CardContent className="p-6">
             <h2 className="text-2xl-accessible font-semibold mb-4 flex items-center">
               <Phone className="mr-2" size={24} />
-              Emergency Contacts
+              அவசர தொடர்புகள்
             </h2>
             <div className="space-y-4">
               {emergencyContacts.map((contact, index) => (
@@ -215,7 +215,7 @@ const Emergency = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl-accessible font-semibold mb-4 flex items-center">
                 <MapPin className="mr-2" size={24} />
-                Your Location
+                உங்கள் இருப்பிடம்
               </h2>
               <div className="space-y-2">
                 <p className="text-xl">{location.address}</p>
@@ -228,23 +228,23 @@ const Emergency = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl-accessible font-semibold mb-4 flex items-center">
                 <Heart className="mr-2" size={24} />
-                Medical Information
+                மருத்துவ தகவல்
               </h2>
               <div className="space-y-3">
                 <div>
-                  <h3 className="text-xl font-medium">Conditions</h3>
+                  <h3 className="text-xl font-medium">நோய்கள்</h3>
                   <p className="text-lg">{medicalInfo.conditions.join(", ")}</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-medium">Allergies</h3>
+                  <h3 className="text-xl font-medium">ஒவ்வாமைகள்</h3>
                   <p className="text-lg">{medicalInfo.allergies.join(", ")}</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-medium">Medications</h3>
+                  <h3 className="text-xl font-medium">மருந்துகள்</h3>
                   <p className="text-lg">{medicalInfo.medications.join(", ")}</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-medium">Blood Type</h3>
+                  <h3 className="text-xl font-medium">இரத்த வகை</h3>
                   <p className="text-lg">{medicalInfo.bloodType}</p>
                 </div>
               </div>

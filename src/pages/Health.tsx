@@ -30,15 +30,15 @@ const Health = () => {
 
   // Simulated medication data
   const [medications, setMedications] = useState([
-    { name: "Lisinopril", dosage: "10mg", schedule: "Daily", morning: true, evening: false, taken: false },
-    { name: "Metformin", dosage: "500mg", schedule: "Twice daily", morning: true, evening: true, taken: false },
-    { name: "Atorvastatin", dosage: "20mg", schedule: "Evening", morning: false, evening: true, taken: false },
-    { name: "Vitamin D", dosage: "1000 IU", schedule: "Daily", morning: true, evening: false, taken: true }
+    { name: "லிசினோப்ரில்", dosage: "10mg", schedule: "தினமும்", morning: true, evening: false, taken: false },
+    { name: "மெட்ஃபார்மின்", dosage: "500mg", schedule: "தினமும் இருமுறை", morning: true, evening: true, taken: false },
+    { name: "அடோர்வாஸ்டாடின்", dosage: "20mg", schedule: "மாலை", morning: false, evening: true, taken: false },
+    { name: "வைட்டமின் டி", dosage: "1000 IU", schedule: "தினமும்", morning: true, evening: false, taken: true }
   ]);
 
   const announcePageLoad = () => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance("Health dashboard loaded. You can view your vital signs, medications, and health trends.");
+      const utterance = new SpeechSynthesisUtterance("ஆரோக்கிய டாஷ்போர்ட் ஏற்றப்பட்டது. உங்கள் உடல்நிலை, மருந்துகள் மற்றும் ஆரோக்கிய போக்குகளைப் பார்க்கலாம்.");
       utterance.rate = 0.9; // Slightly slower for better comprehension
       window.speechSynthesis.speak(utterance);
     }
@@ -56,7 +56,11 @@ const Health = () => {
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(`Showing ${value} information.`);
+      let tabName = "வைட்டல்ஸ்";
+      if (value === "medications") tabName = "மருந்துகள்";
+      if (value === "trends") tabName = "போக்குகள்";
+      
+      const utterance = new SpeechSynthesisUtterance(`${tabName} தகவலைக் காட்டுகிறது.`);
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -69,8 +73,8 @@ const Health = () => {
     
     const med = medications[index];
     toast({
-      title: med.taken ? "Medication Skipped" : "Medication Taken",
-      description: `${med.name} ${med.dosage} marked as ${med.taken ? "not taken" : "taken"}`,
+      title: med.taken ? "மருந்து தவிர்க்கப்பட்டது" : "மருந்து எடுக்கப்பட்டது",
+      description: `${med.name} ${med.dosage} ${med.taken ? "எடுக்கப்படவில்லை" : "எடுக்கப்பட்டது"} என குறிக்கப்பட்டுள்ளது`,
       variant: med.taken ? "default" : "default",
     });
   };
@@ -78,9 +82,9 @@ const Health = () => {
   return (
     <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12">
       <section className="text-center md:text-left">
-        <h1 className="text-4xl-accessible font-bold tracking-tight">Health Dashboard</h1>
+        <h1 className="text-4xl-accessible font-bold tracking-tight">ஆரோக்கிய டாஷ்போர்ட்</h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
-          Monitor your health metrics and medications
+          உங்கள் ஆரோக்கிய அளவீடுகளையும் மருந்துகளையும் கண்காணிக்கவும்
         </p>
       </section>
 
@@ -88,15 +92,15 @@ const Health = () => {
         <TabsList className="grid grid-cols-3 h-auto p-1">
           <TabsTrigger value="vitals" className="text-xl py-3">
             <HeartPulse className="mr-2 h-5 w-5" />
-            Vital Signs
+            உடல்நிலை அளவீடுகள்
           </TabsTrigger>
           <TabsTrigger value="medications" className="text-xl py-3">
             <Utensils className="mr-2 h-5 w-5" />
-            Medications
+            மருந்துகள்
           </TabsTrigger>
           <TabsTrigger value="trends" className="text-xl py-3">
             <LineChart className="mr-2 h-5 w-5" />
-            Trends
+            போக்குகள்
           </TabsTrigger>
         </TabsList>
         
@@ -106,19 +110,19 @@ const Health = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-2xl-accessible flex items-center">
                   <HeartPulse className="mr-2 text-primary" size={28} />
-                  Heart Rate
+                  இதய துடிப்பு
                 </CardTitle>
-                <CardDescription className="text-xl">Current BPM</CardDescription>
+                <CardDescription className="text-xl">தற்போதைய BPM</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
                   <p className="text-4xl-accessible font-bold">{healthData.heartRate.current}</p>
-                  <p className="text-xl text-muted-foreground">beats per minute</p>
+                  <p className="text-xl text-muted-foreground">துடிப்புகள் / நிமிடம்</p>
                 </div>
                 <p className="text-xl mt-2">
-                  {healthData.heartRate.current < 60 ? "Lower than normal" : 
-                   healthData.heartRate.current > 100 ? "Higher than normal" : 
-                   "Within normal range"}
+                  {healthData.heartRate.current < 60 ? "சாதாரணத்தை விட குறைவு" : 
+                   healthData.heartRate.current > 100 ? "சாதாரணத்தை விட அதிகம்" : 
+                   "சாதாரண வரம்பிற்குள்"}
                 </p>
               </CardContent>
             </Card>
@@ -127,9 +131,9 @@ const Health = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-2xl-accessible flex items-center">
                   <Activity className="mr-2 text-primary" size={28} />
-                  Blood Pressure
+                  இரத்த அழுத்தம்
                 </CardTitle>
-                <CardDescription className="text-xl">Systolic/Diastolic</CardDescription>
+                <CardDescription className="text-xl">சிஸ்டோலிக்/டயஸ்டோலிக்</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
@@ -140,8 +144,8 @@ const Health = () => {
                 </div>
                 <p className="text-xl mt-2">
                   {healthData.bloodPressure.systolic > 130 || healthData.bloodPressure.diastolic > 80 
-                    ? "Higher than normal" 
-                    : "Within normal range"}
+                    ? "சாதாரணத்தை விட அதிகம்" 
+                    : "சாதாரண வரம்பிற்குள்"}
                 </p>
               </CardContent>
             </Card>
@@ -150,9 +154,9 @@ const Health = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-2xl-accessible flex items-center">
                   <Droplets className="mr-2 text-primary" size={28} />
-                  Blood Sugar
+                  இரத்த சர்க்கரை
                 </CardTitle>
-                <CardDescription className="text-xl">Fasting glucose</CardDescription>
+                <CardDescription className="text-xl">உணவுக்கு முந்தைய குளுக்கோஸ்</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
@@ -160,9 +164,9 @@ const Health = () => {
                   <p className="text-xl text-muted-foreground">mg/dL</p>
                 </div>
                 <p className="text-xl mt-2">
-                  {healthData.bloodSugar.current > 125 ? "Higher than normal" : 
-                   healthData.bloodSugar.current < 70 ? "Lower than normal" : 
-                   "Within normal range"}
+                  {healthData.bloodSugar.current > 125 ? "சாதாரணத்தை விட அதிகம்" : 
+                   healthData.bloodSugar.current < 70 ? "சாதாரணத்தை விட குறைவு" : 
+                   "சாதாரண வரம்பிற்குள்"}
                 </p>
               </CardContent>
             </Card>
@@ -171,9 +175,9 @@ const Health = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-2xl-accessible flex items-center">
                   <Thermometer className="mr-2 text-primary" size={28} />
-                  Temperature
+                  உடல் வெப்பநிலை
                 </CardTitle>
-                <CardDescription className="text-xl">Body temperature</CardDescription>
+                <CardDescription className="text-xl">உடல் வெப்பநிலை</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center">
@@ -181,9 +185,9 @@ const Health = () => {
                   <p className="text-xl text-muted-foreground">°F</p>
                 </div>
                 <p className="text-xl mt-2">
-                  {healthData.temperature.current > 99.5 ? "Higher than normal" : 
-                   healthData.temperature.current < 97.8 ? "Lower than normal" : 
-                   "Within normal range"}
+                  {healthData.temperature.current > 99.5 ? "சாதாரணத்தை விட அதிகம்" : 
+                   healthData.temperature.current < 97.8 ? "சாதாரணத்தை விட குறைவு" : 
+                   "சாதாரண வரம்பிற்குள்"}
                 </p>
               </CardContent>
             </Card>
@@ -193,9 +197,9 @@ const Health = () => {
         <TabsContent value="medications" className="mt-6">
           <Card className="accessible-card">
             <CardHeader>
-              <CardTitle className="text-2xl-accessible">Today's Medications</CardTitle>
+              <CardTitle className="text-2xl-accessible">இன்றைய மருந்துகள்</CardTitle>
               <CardDescription className="text-xl">
-                Track your medication schedule
+                உங்கள் மருந்து அட்டவணையைக் கண்காணிக்கவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -209,9 +213,9 @@ const Health = () => {
                       <h3 className="text-xl font-medium">{medication.name} ({medication.dosage})</h3>
                       <p className="text-lg text-muted-foreground">
                         {medication.schedule} - 
-                        {medication.morning && " Morning"}
+                        {medication.morning && " காலை"}
                         {medication.morning && medication.evening && " &"}
-                        {medication.evening && " Evening"}
+                        {medication.evening && " மாலை"}
                       </p>
                     </div>
                     <Button
@@ -220,7 +224,7 @@ const Health = () => {
                       className="text-lg"
                       onClick={() => toggleMedicationStatus(index)}
                     >
-                      {medication.taken ? "Taken ✓" : "Mark as Taken"}
+                      {medication.taken ? "எடுக்கப்பட்டது ✓" : "எடுத்ததாக குறிக்கவும்"}
                     </Button>
                   </div>
                 ))}
@@ -232,15 +236,15 @@ const Health = () => {
         <TabsContent value="trends" className="mt-6">
           <Card className="accessible-card">
             <CardHeader>
-              <CardTitle className="text-2xl-accessible">7-Day Health Trends</CardTitle>
+              <CardTitle className="text-2xl-accessible">7-நாள் ஆரோக்கிய போக்குகள்</CardTitle>
               <CardDescription className="text-xl">
-                View your health metrics over time
+                உங்கள் ஆரோக்கிய அளவீடுகளை காலப்போக்கில் பார்க்கவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl font-medium mb-2">Heart Rate (BPM)</h3>
+                  <h3 className="text-xl font-medium mb-2">இதய துடிப்பு (BPM)</h3>
                   <div className="h-24 flex items-end space-x-2">
                     {healthData.heartRate.trend.map((day, i) => (
                       <div key={i} className="flex flex-col items-center flex-1">
@@ -248,14 +252,14 @@ const Health = () => {
                           className="w-full bg-primary rounded-t-sm" 
                           style={{ height: `${(day.value / 100) * 100}%` }}
                         ></div>
-                        <span className="text-sm mt-1">Day {day.day}</span>
+                        <span className="text-sm mt-1">நாள் {day.day}</span>
                       </div>
                     ))}
                   </div>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-medium mb-2">Blood Pressure (Systolic)</h3>
+                  <h3 className="text-xl font-medium mb-2">இரத்த அழுத்தம் (சிஸ்டோலிக்)</h3>
                   <div className="h-24 flex items-end space-x-2">
                     {healthData.bloodPressure.trend.map((day, i) => (
                       <div key={i} className="flex flex-col items-center flex-1">
@@ -263,14 +267,14 @@ const Health = () => {
                           className="w-full bg-primary rounded-t-sm" 
                           style={{ height: `${(day.value / 160) * 100}%` }}
                         ></div>
-                        <span className="text-sm mt-1">Day {day.day}</span>
+                        <span className="text-sm mt-1">நாள் {day.day}</span>
                       </div>
                     ))}
                   </div>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-medium mb-2">Blood Sugar (mg/dL)</h3>
+                  <h3 className="text-xl font-medium mb-2">இரத்த சர்க்கரை (mg/dL)</h3>
                   <div className="h-24 flex items-end space-x-2">
                     {healthData.bloodSugar.trend.map((day, i) => (
                       <div key={i} className="flex flex-col items-center flex-1">
@@ -278,7 +282,7 @@ const Health = () => {
                           className="w-full bg-primary rounded-t-sm" 
                           style={{ height: `${(day.value / 150) * 100}%` }}
                         ></div>
-                        <span className="text-sm mt-1">Day {day.day}</span>
+                        <span className="text-sm mt-1">நாள் {day.day}</span>
                       </div>
                     ))}
                   </div>

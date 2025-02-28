@@ -13,46 +13,46 @@ const Alerts = () => {
   const [reminders, setReminders] = useState([
     { 
       id: 1, 
-      title: "Morning Medication", 
+      title: "காலை மருந்து", 
       time: "8:00 AM", 
       type: "medication", 
-      details: "Take Lisinopril 10mg with water",
+      details: "லிசினோப்ரில் 10mg தண்ணீருடன் எடுக்கவும்",
       active: true,
       completed: false
     },
     { 
       id: 2, 
-      title: "Doctor Appointment", 
+      title: "மருத்துவர் சந்திப்பு", 
       time: "10:30 AM", 
       type: "appointment", 
-      details: "Dr. Johnson - Blood pressure check",
+      details: "டாக்டர் ஜான்சன் - இரத்த அழுத்த பரிசோதனை",
       active: true,
       completed: false
     },
     { 
       id: 3, 
-      title: "Afternoon Walk", 
+      title: "மதிய நடைப்பயிற்சி", 
       time: "2:00 PM", 
       type: "activity", 
-      details: "30 minute walk in the neighborhood",
+      details: "தொகுப்பில் 30 நிமிட நடைப்பயிற்சி",
       active: true,
       completed: false
     },
     { 
       id: 4, 
-      title: "Evening Medication", 
+      title: "மாலை மருந்து", 
       time: "7:00 PM", 
       type: "medication", 
-      details: "Take Metformin 500mg after dinner",
+      details: "இரவு உணவுக்குப் பிறகு மெட்ஃபார்மின் 500mg எடுக்கவும்",
       active: true,
       completed: false
     },
     { 
       id: 5, 
-      title: "Call Family", 
+      title: "குடும்பத்தை அழைக்க", 
       time: "5:00 PM", 
       type: "social", 
-      details: "Video call with daughter",
+      details: "மகளுடன் வீடியோ அழைப்பு",
       active: true,
       completed: true
     }
@@ -62,7 +62,7 @@ const Alerts = () => {
 
   const announcePageLoad = () => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance("Alerts and Reminders page. You have reminders for today. Voice reminders are enabled.");
+      const utterance = new SpeechSynthesisUtterance("அறிவிப்புகள் மற்றும் நினைவூட்டல்கள் பக்கம். இன்றைக்கு உங்களுக்கு நினைவூட்டல்கள் உள்ளன. குரல் நினைவூட்டல்கள் இயக்கப்பட்டுள்ளன.");
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -81,17 +81,17 @@ const Alerts = () => {
     setVoiceRemindersEnabled(!voiceRemindersEnabled);
     
     toast({
-      title: voiceRemindersEnabled ? "Voice Reminders Disabled" : "Voice Reminders Enabled",
+      title: voiceRemindersEnabled ? "குரல் நினைவூட்டல்கள் முடக்கப்பட்டன" : "குரல் நினைவூட்டல்கள் இயக்கப்பட்டன",
       description: voiceRemindersEnabled 
-        ? "You will no longer receive voice announcements for reminders." 
-        : "You will now receive voice announcements for reminders.",
+        ? "நினைவூட்டல்களுக்கான குரல் அறிவிப்புகளை இனி பெற மாட்டீர்கள்." 
+        : "நினைவூட்டல்களுக்கான குரல் அறிவிப்புகளை இப்போது பெறுவீர்கள்.",
     });
     
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(
         voiceRemindersEnabled 
-          ? "Voice reminders have been turned off." 
-          : "Voice reminders have been turned on."
+          ? "குரல் நினைவூட்டல்கள் அணைக்கப்பட்டன." 
+          : "குரல் நினைவூட்டல்கள் இயக்கப்பட்டன."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -108,8 +108,8 @@ const Alerts = () => {
     const reminder = reminders.find(r => r.id === id);
     if (reminder) {
       toast({
-        title: reminder.active ? "Reminder Disabled" : "Reminder Enabled",
-        description: `"${reminder.title}" has been ${reminder.active ? "disabled" : "enabled"}.`,
+        title: reminder.active ? "நினைவூட்டல் முடக்கப்பட்டது" : "நினைவூட்டல் இயக்கப்பட்டது",
+        description: `"${reminder.title}" ${reminder.active ? "முடக்கப்பட்டது" : "இயக்கப்பட்டது"}.`,
       });
     }
   };
@@ -125,16 +125,16 @@ const Alerts = () => {
     if (reminder) {
       const newStatus = !reminder.completed;
       toast({
-        title: newStatus ? "Reminder Completed" : "Reminder Reopened",
-        description: `"${reminder.title}" has been marked as ${newStatus ? "completed" : "not completed"}.`,
+        title: newStatus ? "நினைவூட்டல் முடிக்கப்பட்டது" : "நினைவூட்டல் மீண்டும் திறக்கப்பட்டது",
+        description: `"${reminder.title}" ${newStatus ? "முடிக்கப்பட்டதாக" : "முடிக்கப்படாததாக"} குறிக்கப்பட்டுள்ளது.`,
         variant: "default",
       });
       
       if ('speechSynthesis' in window && voiceRemindersEnabled) {
         const utterance = new SpeechSynthesisUtterance(
           newStatus 
-            ? `${reminder.title} marked as completed.` 
-            : `${reminder.title} marked as not completed.`
+            ? `${reminder.title} முடிக்கப்பட்டதாக குறிக்கப்பட்டது.` 
+            : `${reminder.title} முடிக்கப்படாததாக குறிக்கப்பட்டது.`
         );
         utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
@@ -145,10 +145,10 @@ const Alerts = () => {
   const addDemoReminder = () => {
     const newReminder = {
       id: Math.max(...reminders.map(r => r.id)) + 1,
-      title: "Water Plants", 
+      title: "செடிகளுக்கு நீர் ஊற்ற", 
       time: "4:30 PM", 
       type: "activity", 
-      details: "Water the indoor plants",
+      details: "உள் செடிகளுக்கு நீர் ஊற்ற",
       active: true,
       completed: false
     };
@@ -156,14 +156,14 @@ const Alerts = () => {
     setReminders([...reminders, newReminder]);
     
     toast({
-      title: "New Reminder Added",
-      description: `"${newReminder.title}" has been added to your reminders.`,
+      title: "புதிய நினைவூட்டல் சேர்க்கப்பட்டது",
+      description: `"${newReminder.title}" உங்கள் நினைவூட்டல்களில் சேர்க்கப்பட்டுள்ளது.`,
       variant: "default",
     });
     
     if ('speechSynthesis' in window && voiceRemindersEnabled) {
       const utterance = new SpeechSynthesisUtterance(
-        `New reminder added: ${newReminder.title} at ${newReminder.time}.`
+        `புதிய நினைவூட்டல் சேர்க்கப்பட்டது: ${newReminder.time} மணிக்கு ${newReminder.title}.`
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -183,17 +183,33 @@ const Alerts = () => {
 
   const getTypeBadge = (type: string) => {
     let className = "";
+    let typeName = "";
+    
     switch(type) {
-      case "medication": className = "bg-blue-100 text-blue-800"; break;
-      case "appointment": className = "bg-violet-100 text-violet-800"; break;
-      case "activity": className = "bg-green-100 text-green-800"; break;
-      case "social": className = "bg-amber-100 text-amber-800"; break;
-      default: className = "bg-primary/20 text-primary-foreground";
+      case "medication": 
+        className = "bg-blue-100 text-blue-800"; 
+        typeName = "மருந்து";
+        break;
+      case "appointment": 
+        className = "bg-violet-100 text-violet-800"; 
+        typeName = "சந்திப்பு";
+        break;
+      case "activity": 
+        className = "bg-green-100 text-green-800"; 
+        typeName = "செயல்பாடு";
+        break;
+      case "social": 
+        className = "bg-amber-100 text-amber-800"; 
+        typeName = "சமூக";
+        break;
+      default: 
+        className = "bg-primary/20 text-primary-foreground";
+        typeName = type;
     }
     
     return (
       <Badge variant="outline" className={`text-lg px-3 py-1 ${className}`}>
-        {type.charAt(0).toUpperCase() + type.slice(1)}
+        {typeName}
       </Badge>
     );
   };
@@ -201,9 +217,9 @@ const Alerts = () => {
   return (
     <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12">
       <section className="text-center md:text-left">
-        <h1 className="text-4xl-accessible font-bold tracking-tight">Alerts & Reminders</h1>
+        <h1 className="text-4xl-accessible font-bold tracking-tight">அறிவிப்புகள் & நினைவூட்டல்கள்</h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
-          Manage your daily schedule and reminders
+          உங்கள் தினசரி அட்டவணையையும் நினைவூட்டல்களையும் நிர்வகிக்கவும்
         </p>
       </section>
 
@@ -211,9 +227,9 @@ const Alerts = () => {
         <CardHeader>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between">
             <div>
-              <CardTitle className="text-2xl-accessible">Voice Reminders</CardTitle>
+              <CardTitle className="text-2xl-accessible">குரல் நினைவூட்டல்கள்</CardTitle>
               <CardDescription className="text-xl mt-1">
-                Enable or disable voice announcements
+                குரல் அறிவிப்புகளை இயக்கவும் அல்லது முடக்கவும்
               </CardDescription>
             </div>
             <div className="flex items-center space-x-2 mt-4 sm:mt-0">
@@ -223,7 +239,7 @@ const Alerts = () => {
                 onCheckedChange={handleVoiceRemindersToggle}
               />
               <label htmlFor="voice-mode" className="text-xl">
-                {voiceRemindersEnabled ? "Enabled" : "Disabled"}
+                {voiceRemindersEnabled ? "இயக்கப்பட்டது" : "முடக்கப்பட்டது"}
               </label>
             </div>
           </div>
@@ -232,13 +248,13 @@ const Alerts = () => {
 
       <section className="space-y-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl-accessible font-semibold">Today's Reminders</h2>
+          <h2 className="text-2xl-accessible font-semibold">இன்றைய நினைவூட்டல்கள்</h2>
           <Button 
             onClick={addDemoReminder}
             className="text-lg"
           >
             <Plus className="mr-2 h-5 w-5" />
-            Add Reminder
+            நினைவூட்டல் சேர்
           </Button>
         </div>
         
@@ -275,7 +291,7 @@ const Alerts = () => {
                       size="icon"
                       className="h-12 w-12"
                       onClick={() => toggleReminderCompleted(reminder.id)}
-                      title={reminder.completed ? "Mark as not completed" : "Mark as completed"}
+                      title={reminder.completed ? "முடிக்கப்படாதது என குறிக்க" : "முடிக்கப்பட்டது என குறிக்க"}
                     >
                       <Check className="h-6 w-6" />
                     </Button>
@@ -284,7 +300,7 @@ const Alerts = () => {
                       size="icon"
                       className="h-12 w-12"
                       onClick={() => toggleReminderActive(reminder.id)}
-                      title={reminder.active ? "Disable reminder" : "Enable reminder"}
+                      title={reminder.active ? "நினைவூட்டலை முடக்கு" : "நினைவூட்டலை இயக்கு"}
                     >
                       {reminder.active ? <Bell className="h-6 w-6" /> : <X className="h-6 w-6" />}
                     </Button>

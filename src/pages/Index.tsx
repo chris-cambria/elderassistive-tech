@@ -9,30 +9,30 @@ import { useToast } from "@/hooks/use-toast";
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [greeting, setGreeting] = useState("Good day");
-  const [userName, setUserName] = useState("User");
+  const [greeting, setGreeting] = useState("நல்ல நாள்");
+  const [userName, setUserName] = useState("பயனர்");
   const [todayActivities, setTodayActivities] = useState([
-    { time: "9:00 AM", activity: "Take morning medication" },
-    { time: "10:30 AM", activity: "Video call with family" },
-    { time: "12:00 PM", activity: "Lunch time" },
-    { time: "3:00 PM", activity: "Afternoon walk" },
-    { time: "6:00 PM", activity: "Evening medication" }
+    { time: "9:00 AM", activity: "காலை மருந்து எடுத்துக்கொள்ளுங்கள்" },
+    { time: "10:30 AM", activity: "குடும்பத்துடன் வீடியோ அழைப்பு" },
+    { time: "12:00 PM", activity: "மதிய உணவு நேரம்" },
+    { time: "3:00 PM", activity: "மதிய நடைப்பயிற்சி" },
+    { time: "6:00 PM", activity: "மாலை மருந்து" }
   ]);
   
   // Set appropriate greeting based on time of day
   useEffect(() => {
     const hour = new Date().getHours();
-    if (hour < 12) setGreeting("Good morning");
-    else if (hour < 18) setGreeting("Good afternoon");
-    else setGreeting("Good evening");
+    if (hour < 12) setGreeting("காலை வணக்கம்");
+    else if (hour < 18) setGreeting("மதிய வணக்கம்");
+    else setGreeting("மாலை வணக்கம்");
     
     // In a real app, this would come from user authentication
-    setUserName("Thomas");
+    setUserName("தாமஸ்");
   }, []);
 
   const announceWelcome = () => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(`${greeting}, ${userName}. Welcome to your ElderAssist dashboard.`);
+      const utterance = new SpeechSynthesisUtterance(`${greeting}, ${userName}. உங்கள் எல்டர்அசிஸ்ட் டாஷ்போர்டிற்கு வரவேற்கிறோம்.`);
       utterance.rate = 0.9; // Slightly slower for better comprehension
       window.speechSynthesis.speak(utterance);
     }
@@ -50,12 +50,12 @@ const Index = () => {
 
   const navigateWithAnnouncement = (path: string, title: string) => {
     toast({
-      title: `Opening ${title}`,
-      description: `Navigating to the ${title} page for you.`,
+      title: `${title} திறக்கிறது`,
+      description: `${title} பக்கத்திற்கு செல்கிறது.`,
     });
     
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(`Opening ${title} page.`);
+      const utterance = new SpeechSynthesisUtterance(`${title} பக்கம் திறக்கிறது.`);
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -68,23 +68,23 @@ const Index = () => {
       <section className="text-center md:text-left">
         <h1 className="text-4xl-accessible font-bold tracking-tight">{greeting}, {userName}</h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
-          Welcome to your personal dashboard
+          உங்கள் தனிப்பட்ட டாஷ்போர்டிற்கு வரவேற்கிறோம்
         </p>
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/health", "Health Dashboard")}>
+        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/health", "ஆரோக்கிய டாஷ்போர்ட்")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-2xl-accessible flex items-center">
               <HeartPulse className="mr-2 text-primary" size={28} />
-              Health
+              ஆரோக்கியம்
             </CardTitle>
-            <CardDescription className="text-xl">Monitor your vital signs</CardDescription>
+            <CardDescription className="text-xl">உங்கள் உடல்நிலையை கண்காணித்தல்</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex justify-between items-center">
               <div className="text-left">
-                <p className="text-xl">Heart Rate</p>
+                <p className="text-xl">இதய துடிப்பு</p>
                 <p className="text-3xl-accessible font-semibold">72 BPM</p>
               </div>
               <Activity size={48} className="text-primary/80" />
@@ -92,13 +92,13 @@ const Index = () => {
           </CardContent>
         </Card>
 
-        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/alerts", "Alerts & Reminders")}>
+        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/alerts", "அறிவிப்புகள் & நினைவூட்டல்கள்")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-2xl-accessible flex items-center">
               <Bell className="mr-2 text-primary" size={28} />
-              Reminders
+              நினைவூட்டல்கள்
             </CardTitle>
-            <CardDescription className="text-xl">Today's schedule</CardDescription>
+            <CardDescription className="text-xl">இன்றைய அட்டவணை</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -108,28 +108,28 @@ const Index = () => {
                   <span className="text-xl text-right">{item.activity}</span>
                 </div>
               ))}
-              <p className="text-lg text-muted-foreground italic">+3 more activities</p>
+              <p className="text-lg text-muted-foreground italic">+3 மேலும் செயல்பாடுகள்</p>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/settings", "Settings")}>
+        <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/settings", "அமைப்புகள்")}>
           <CardHeader className="pb-2">
             <CardTitle className="text-2xl-accessible flex items-center">
               <UserRound className="mr-2 text-primary" size={28} />
-              Profile
+              சுயவிவரம்
             </CardTitle>
-            <CardDescription className="text-xl">Your information</CardDescription>
+            <CardDescription className="text-xl">உங்கள் தகவல்</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col space-y-1">
               <div className="flex justify-between">
-                <span className="text-xl font-medium">Next Appointment</span>
-                <span className="text-xl">May 15</span>
+                <span className="text-xl font-medium">அடுத்த சந்திப்பு</span>
+                <span className="text-xl">மே 15</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-xl font-medium">Doctor</span>
-                <span className="text-xl">Dr. Johnson</span>
+                <span className="text-xl font-medium">மருத்துவர்</span>
+                <span className="text-xl">டாக்டர் ஜான்சன்</span>
               </div>
             </div>
           </CardContent>
@@ -141,7 +141,7 @@ const Index = () => {
           <CardHeader>
             <CardTitle className="text-2xl-accessible flex items-center">
               <Calendar className="mr-2 text-primary" size={28} />
-              Today's Schedule
+              இன்றைய அட்டவணை
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -164,10 +164,10 @@ const Index = () => {
         <Button 
           size="lg" 
           className="accessible-button bg-destructive hover:bg-destructive/90 text-white" 
-          onClick={() => navigateWithAnnouncement("/emergency", "Emergency Assistance")}
+          onClick={() => navigateWithAnnouncement("/emergency", "அவசர உதவி")}
         >
           <Bell className="mr-2" size={24} />
-          Emergency Assistance
+          அவசர உதவி
         </Button>
       </section>
     </div>

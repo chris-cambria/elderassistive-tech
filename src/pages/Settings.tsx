@@ -26,9 +26,9 @@ const Settings = () => {
   const [contrastMode, setContrastMode] = useState(false);
   const [voiceControl, setVoiceControl] = useState(true);
   const [emergencyContacts, setEmergencyContacts] = useState([
-    { name: "Mary (Daughter)", phone: "555-987-6543" },
-    { name: "John (Son)", phone: "555-876-5432" },
-    { name: "Dr. Johnson", phone: "555-123-4567" }
+    { name: "மேரி (மகள்)", phone: "555-987-6543" },
+    { name: "ஜான் (மகன்)", phone: "555-876-5432" },
+    { name: "டாக்டர் ஜான்சன்", phone: "555-123-4567" }
   ]);
   const [notifications, setNotifications] = useState({
     medications: true,
@@ -39,7 +39,7 @@ const Settings = () => {
   
   const announcePageLoad = () => {
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance("Settings page loaded. You can adjust accessibility preferences, notifications, and manage your profile.");
+      const utterance = new SpeechSynthesisUtterance("அமைப்புகள் பக்கம் ஏற்றப்பட்டது. அணுகல் விருப்பங்கள், அறிவிப்புகள் மற்றும் உங்கள் சுயவிவரத்தை நிர்வகிக்கலாம்.");
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -62,16 +62,16 @@ const Settings = () => {
       newSize === 1 ? '14px' : 
       newSize === 2 ? '16px' : '18px';
     
-    const sizeLabel = newSize === 1 ? 'Small' : newSize === 2 ? 'Medium' : 'Large';
+    const sizeLabel = newSize === 1 ? 'சிறிய' : newSize === 2 ? 'நடுத்தர' : 'பெரிய';
     
     toast({
-      title: "Text Size Changed",
-      description: `Text size set to ${sizeLabel}`,
+      title: "உரை அளவு மாற்றப்பட்டது",
+      description: `உரை அளவு ${sizeLabel} ஆக அமைக்கப்பட்டது`,
       variant: "default",
     });
     
     if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(`Text size changed to ${sizeLabel}`);
+      const utterance = new SpeechSynthesisUtterance(`உரை அளவு ${sizeLabel} ஆக மாற்றப்பட்டது`);
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
@@ -87,18 +87,18 @@ const Settings = () => {
     }
     
     toast({
-      title: contrastMode ? "Standard Contrast Mode" : "High Contrast Mode",
+      title: contrastMode ? "வழக்கமான காண்ட்ராஸ்ட் பயன்முறை" : "உயர் காண்ட்ராஸ்ட் பயன்முறை",
       description: contrastMode 
-        ? "Contrast mode has been disabled." 
-        : "High contrast mode has been enabled for better visibility.",
+        ? "காண்ட்ராஸ்ட் பயன்முறை முடக்கப்பட்டது." 
+        : "சிறந்த தெரிவுக்காக உயர் காண்ட்ராஸ்ட் பயன்முறை இயக்கப்பட்டது.",
       variant: "default",
     });
     
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(
         contrastMode 
-          ? "Standard contrast mode activated." 
-          : "High contrast mode activated."
+          ? "வழக்கமான காண்ட்ராஸ்ட் பயன்முறை செயல்படுத்தப்பட்டது." 
+          : "உயர் காண்ட்ராஸ்ட் பயன்முறை செயல்படுத்தப்பட்டது."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -109,18 +109,18 @@ const Settings = () => {
     setVoiceControl(!voiceControl);
     
     toast({
-      title: voiceControl ? "Voice Control Disabled" : "Voice Control Enabled",
+      title: voiceControl ? "குரல் கட்டுப்பாடு முடக்கப்பட்டது" : "குரல் கட்டுப்பாடு இயக்கப்பட்டது",
       description: voiceControl 
-        ? "Voice control has been turned off." 
-        : "Voice control has been activated.",
+        ? "குரல் கட்டுப்பாடு அணைக்கப்பட்டது." 
+        : "குரல் கட்டுப்பாடு செயல்படுத்தப்பட்டது.",
       variant: "default",
     });
     
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(
         voiceControl 
-          ? "Voice control deactivated." 
-          : "Voice control activated."
+          ? "குரல் கட்டுப்பாடு முடக்கப்பட்டது." 
+          : "குரல் கட்டுப்பாடு இயக்கப்பட்டது."
       );
       utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
@@ -133,11 +133,19 @@ const Settings = () => {
       [key]: !notifications[key]
     });
     
+    let notificationName = "";
+    switch(key) {
+      case "medications": notificationName = "மருந்து நினைவூட்டல்கள்"; break;
+      case "appointments": notificationName = "சந்திப்புகள்"; break;
+      case "healthAlerts": notificationName = "ஆரோக்கிய அறிவிப்புகள்"; break;
+      case "familyMessages": notificationName = "குடும்ப செய்திகள்"; break;
+    }
+    
     toast({
-      title: notifications[key] ? `${key} Notifications Disabled` : `${key} Notifications Enabled`,
+      title: notifications[key] ? `${notificationName} அறிவிப்புகள் முடக்கப்பட்டன` : `${notificationName} அறிவிப்புகள் இயக்கப்பட்டன`,
       description: notifications[key] 
-        ? `You will no longer receive notifications for ${key}.` 
-        : `You will now receive notifications for ${key}.`,
+        ? `${notificationName} குறித்த அறிவிப்புகளை இனி பெற மாட்டீர்கள்.` 
+        : `${notificationName} குறித்த அறிவிப்புகளை இப்போது பெறுவீர்கள்.`,
       variant: "default",
     });
   };
@@ -145,15 +153,15 @@ const Settings = () => {
   const addEmergencyContact = () => {
     // In a real app, this would open a form to add a new contact
     const newContact = { 
-      name: "New Contact", 
+      name: "புதிய தொடர்பு", 
       phone: "555-000-0000" 
     };
     
     setEmergencyContacts([...emergencyContacts, newContact]);
     
     toast({
-      title: "Emergency Contact Added",
-      description: "New emergency contact has been added to your list.",
+      title: "அவசர தொடர்பு சேர்க்கப்பட்டது",
+      description: "புதிய அவசர தொடர்பு உங்கள் பட்டியலில் சேர்க்கப்பட்டுள்ளது.",
       variant: "default",
     });
   };
@@ -161,9 +169,9 @@ const Settings = () => {
   return (
     <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12">
       <section className="text-center md:text-left">
-        <h1 className="text-4xl-accessible font-bold tracking-tight">Settings</h1>
+        <h1 className="text-4xl-accessible font-bold tracking-tight">அமைப்புகள்</h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
-          Customize your experience and preferences
+          உங்கள் அனுபவத்தையும் விருப்பத்தேர்வுகளையும் தனிப்பயனாக்கவும்
         </p>
       </section>
 
@@ -171,32 +179,32 @@ const Settings = () => {
         <TabsList className="grid grid-cols-3 h-auto p-1">
           <TabsTrigger value="accessibility" className="text-xl py-3">
             <Eye className="mr-2 h-5 w-5" />
-            Accessibility
+            அணுகல் தன்மை
           </TabsTrigger>
           <TabsTrigger value="notifications" className="text-xl py-3">
             <Bell className="mr-2 h-5 w-5" />
-            Notifications
+            அறிவிப்புகள்
           </TabsTrigger>
           <TabsTrigger value="profile" className="text-xl py-3">
             <UserRound className="mr-2 h-5 w-5" />
-            Profile
+            சுயவிவரம்
           </TabsTrigger>
         </TabsList>
         
         <TabsContent value="accessibility" className="mt-6 space-y-6">
           <Card className="accessible-card">
             <CardHeader className="pb-3">
-              <CardTitle className="text-2xl-accessible">Text Size</CardTitle>
+              <CardTitle className="text-2xl-accessible">உரை அளவு</CardTitle>
               <CardDescription className="text-xl">
-                Adjust the size of text throughout the application
+                பயன்பாட்டில் உள்ள உரையின் அளவை சரிசெய்யவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-lg">Small</span>
-                  <span className="text-xl">Medium</span>
-                  <span className="text-2xl">Large</span>
+                  <span className="text-lg">சிறிய</span>
+                  <span className="text-xl">நடுத்தர</span>
+                  <span className="text-2xl">பெரிய</span>
                 </div>
                 <Slider
                   defaultValue={[textSize]}
@@ -212,17 +220,17 @@ const Settings = () => {
 
           <Card className="accessible-card">
             <CardHeader className="pb-3">
-              <CardTitle className="text-2xl-accessible">Display Options</CardTitle>
+              <CardTitle className="text-2xl-accessible">காட்சி விருப்பங்கள்</CardTitle>
               <CardDescription className="text-xl">
-                Customize how content appears on screen
+                திரையில் உள்ளடக்கம் தோன்றும் விதத்தை தனிப்பயனாக்கவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">High Contrast Mode</label>
-                    <p className="text-muted-foreground">Enhances visibility with stronger contrast</p>
+                    <label className="text-xl font-medium">உயர் காண்ட்ராஸ்ட் பயன்முறை</label>
+                    <p className="text-muted-foreground">வலுவான காண்ட்ராஸ்ட் மூலம் தெரிவுத்திறனை மேம்படுத்துகிறது</p>
                   </div>
                   <Switch
                     checked={contrastMode}
@@ -235,17 +243,17 @@ const Settings = () => {
 
           <Card className="accessible-card">
             <CardHeader className="pb-3">
-              <CardTitle className="text-2xl-accessible">Voice Control</CardTitle>
+              <CardTitle className="text-2xl-accessible">குரல் கட்டுப்பாடு</CardTitle>
               <CardDescription className="text-xl">
-                Configure voice command settings
+                குரல் கட்டளை அமைப்புகளை உள்ளமைக்கவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">Enable Voice Commands</label>
-                    <p className="text-muted-foreground">Navigate the app using voice instructions</p>
+                    <label className="text-xl font-medium">குரல் கட்டளைகளை இயக்கு</label>
+                    <p className="text-muted-foreground">குரல் வழிமுறைகளைப் பயன்படுத்தி பயன்பாட்டை வழிநடத்தவும்</p>
                   </div>
                   <Switch
                     checked={voiceControl}
@@ -260,17 +268,17 @@ const Settings = () => {
         <TabsContent value="notifications" className="mt-6 space-y-6">
           <Card className="accessible-card">
             <CardHeader className="pb-3">
-              <CardTitle className="text-2xl-accessible">Notification Preferences</CardTitle>
+              <CardTitle className="text-2xl-accessible">அறிவிப்பு விருப்பங்கள்</CardTitle>
               <CardDescription className="text-xl">
-                Choose which notifications you want to receive
+                எந்த அறிவிப்புகளைப் பெற விரும்புகிறீர்கள் என்பதைத் தேர்வுசெய்யவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">Medication Reminders</label>
-                    <p className="text-muted-foreground">Alerts for when to take medications</p>
+                    <label className="text-xl font-medium">மருந்து நினைவூட்டல்கள்</label>
+                    <p className="text-muted-foreground">மருந்து எடுக்க வேண்டிய நேரத்திற்கான விழிப்பூட்டல்கள்</p>
                   </div>
                   <Switch
                     checked={notifications.medications}
@@ -279,8 +287,8 @@ const Settings = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">Appointments</label>
-                    <p className="text-muted-foreground">Reminders about upcoming appointments</p>
+                    <label className="text-xl font-medium">சந்திப்புகள்</label>
+                    <p className="text-muted-foreground">வரவிருக்கும் சந்திப்புகள் பற்றிய நினைவூட்டல்கள்</p>
                   </div>
                   <Switch
                     checked={notifications.appointments}
@@ -289,8 +297,8 @@ const Settings = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">Health Alerts</label>
-                    <p className="text-muted-foreground">Important health status notifications</p>
+                    <label className="text-xl font-medium">ஆரோக்கிய அறிவிப்புகள்</label>
+                    <p className="text-muted-foreground">முக்கியமான ஆரோக்கிய நிலை அறிவிப்புகள்</p>
                   </div>
                   <Switch
                     checked={notifications.healthAlerts}
@@ -299,8 +307,8 @@ const Settings = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <label className="text-xl font-medium">Family Messages</label>
-                    <p className="text-muted-foreground">Messages from family members</p>
+                    <label className="text-xl font-medium">குடும்ப செய்திகள்</label>
+                    <p className="text-muted-foreground">குடும்ப உறுப்பினர்களிடமிருந்து வரும் செய்திகள்</p>
                   </div>
                   <Switch
                     checked={notifications.familyMessages}
@@ -315,40 +323,40 @@ const Settings = () => {
         <TabsContent value="profile" className="mt-6 space-y-6">
           <Card className="accessible-card">
             <CardHeader className="pb-3">
-              <CardTitle className="text-2xl-accessible">Personal Information</CardTitle>
+              <CardTitle className="text-2xl-accessible">தனிப்பட்ட தகவல்</CardTitle>
               <CardDescription className="text-xl">
-                Manage your personal details
+                உங்கள் தனிப்பட்ட விவரங்களை நிர்வகிக்கவும்
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center p-3 bg-secondary rounded-lg">
                   <div>
-                    <h3 className="text-xl font-medium">Full Name</h3>
-                    <p className="text-lg">Thomas Anderson</p>
+                    <h3 className="text-xl font-medium">முழு பெயர்</h3>
+                    <p className="text-lg">தாமஸ் ஆண்டர்சன்</p>
                   </div>
                   <Button variant="ghost" className="mt-2 sm:mt-0">
-                    <span className="mr-1">Edit</span>
+                    <span className="mr-1">திருத்து</span>
                     <ChevronRight size={16} />
                   </Button>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center p-3 bg-secondary rounded-lg">
                   <div>
-                    <h3 className="text-xl font-medium">Date of Birth</h3>
-                    <p className="text-lg">May 15, 1945</p>
+                    <h3 className="text-xl font-medium">பிறந்த தேதி</h3>
+                    <p className="text-lg">மே 15, 1945</p>
                   </div>
                   <Button variant="ghost" className="mt-2 sm:mt-0">
-                    <span className="mr-1">Edit</span>
+                    <span className="mr-1">திருத்து</span>
                     <ChevronRight size={16} />
                   </Button>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center p-3 bg-secondary rounded-lg">
                   <div>
-                    <h3 className="text-xl font-medium">Address</h3>
-                    <p className="text-lg">123 Main Street, Anytown, USA</p>
+                    <h3 className="text-xl font-medium">முகவரி</h3>
+                    <p className="text-lg">123 மெயின் ஸ்ட்ரீட், ஏனிடவுன், அமெரிக்கா</p>
                   </div>
                   <Button variant="ghost" className="mt-2 sm:mt-0">
-                    <span className="mr-1">Edit</span>
+                    <span className="mr-1">திருத்து</span>
                     <ChevronRight size={16} />
                   </Button>
                 </div>
@@ -359,14 +367,14 @@ const Settings = () => {
           <Card className="accessible-card">
             <CardHeader className="pb-3">
               <CardTitle className="text-2xl-accessible flex items-center justify-between">
-                <span>Emergency Contacts</span>
+                <span>அவசர தொடர்புகள்</span>
                 <Button onClick={addEmergencyContact}>
                   <Plus size={18} className="mr-1" />
-                  Add Contact
+                  தொடர்பு சேர்
                 </Button>
               </CardTitle>
               <CardDescription className="text-xl">
-                People to contact in case of emergency
+                அவசர நிலையில் தொடர்பு கொள்ள வேண்டிய நபர்கள்
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -382,11 +390,11 @@ const Settings = () => {
                     </div>
                     <div className="flex mt-2 sm:mt-0">
                       <Button variant="outline" size="sm" className="mr-2">
-                        <span className="mr-1">Edit</span>
+                        <span className="mr-1">திருத்து</span>
                         <ChevronRight size={16} />
                       </Button>
                       <Button variant="outline" size="sm" className="text-destructive">
-                        <span className="mr-1">Remove</span>
+                        <span className="mr-1">அகற்று</span>
                         <X size={16} />
                       </Button>
                     </div>
