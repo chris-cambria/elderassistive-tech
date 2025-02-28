@@ -80,15 +80,15 @@
 
 @layer components {
   .accessible-button {
-    @apply text-lg md:text-xl p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/50;
+    @apply text-lg md:text-xl p-3 md:p-4 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/50;
   }
 
   .accessible-card {
-    @apply p-4 md:p-6 rounded-xl bg-white shadow-md transition-all duration-300 border border-border hover:shadow-lg;
+    @apply p-3 md:p-4 rounded-xl bg-white shadow-md transition-all duration-300 border border-border hover:shadow-lg;
   }
 
   .voice-indicator {
-    @apply w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300;
+    @apply w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300;
   }
   
   .voice-indicator.active {

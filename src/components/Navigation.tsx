@@ -224,7 +224,7 @@ const Navigation = () => {
     <>
       {/* Mobile header with menu button */}
       {isMobile && (
-        <div className="fixed top-0 left-0 right-0 bg-background z-50 flex items-center justify-between p-3 border-b">
+        <div className="fixed top-0 left-0 right-0 bg-background z-50 flex items-center justify-between p-2 border-b">
           <Button 
             variant="ghost" 
             size="icon" 
@@ -250,10 +250,10 @@ const Navigation = () => {
       <div 
         className={`fixed left-0 top-0 bottom-0 bg-background border-r w-64 p-4 z-40 transition-transform duration-300 flex flex-col ${
           isMobile ? (isSidebarOpen ? 'translate-x-0' : '-translate-x-full') : 'translate-x-0'
-        } ${isMobile ? 'mt-14' : ''}`}
+        } ${isMobile ? 'mt-10' : ''}`}
       >
         {!isMobile && (
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between">
             <h1 className="text-xl font-semibold">எல்டர்அசிஸ்ட்</h1>
             <Button
               variant="outline"
@@ -301,7 +301,7 @@ const Navigation = () => {
       
       {/* Main content area with proper spacing for sidebar */}
       <main className={`transition-all duration-300 min-h-screen ${
-        isMobile ? 'pt-16 px-3' : 'ml-64 p-5'
+        isMobile ? 'pt-10 px-2' : 'ml-64 p-4'
       }`}>
         {/* This is where your page content will go */}
       </main>

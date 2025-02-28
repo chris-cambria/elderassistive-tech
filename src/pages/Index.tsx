@@ -64,24 +64,24 @@ const Index = () => {
   };
 
   return (
-    <div className="animate-fade-in space-y-6 max-w-5xl mx-auto pb-12 px-3">
-      <section className="text-center md:text-left pt-2">
+    <div className="animate-fade-in space-y-4 max-w-5xl mx-auto pb-6 px-2">
+      <section className="text-center md:text-left">
         <h1 className="text-3xl md:text-4xl-accessible font-bold tracking-tight">{greeting}, {userName}</h1>
-        <p className="text-xl md:text-2xl-accessible text-muted-foreground mt-2">
+        <p className="text-xl md:text-2xl-accessible text-muted-foreground mt-1">
           உங்கள் தனிப்பட்ட டாஷ்போர்டிற்கு வரவேற்கிறோம்
         </p>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/health", "ஆரோக்கிய டாஷ்போர்ட்")}>
-          <CardHeader className="pb-2 p-4">
+          <CardHeader className="pb-2 p-3">
             <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
               <HeartPulse className="mr-2 text-primary" size={24} />
               ஆரோக்கியம்
             </CardTitle>
             <CardDescription className="text-lg">உங்கள் உடல்நிலையை கண்காணித்தல்</CardDescription>
           </CardHeader>
-          <CardContent className="p-4">
+          <CardContent className="p-3">
             <div className="flex justify-between items-center">
               <div className="text-left">
                 <p className="text-lg">இதய துடிப்பு</p>
@@ -93,14 +93,14 @@ const Index = () => {
         </Card>
 
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/alerts", "அறிவிப்புகள் & நினைவூட்டல்கள்")}>
-          <CardHeader className="pb-2 p-4">
+          <CardHeader className="pb-2 p-3">
             <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
               <Bell className="mr-2 text-primary" size={24} />
               நினைவூட்டல்கள்
             </CardTitle>
             <CardDescription className="text-lg">இன்றைய அட்டவணை</CardDescription>
           </CardHeader>
-          <CardContent className="p-4">
+          <CardContent className="p-3">
             <div className="space-y-2">
               {todayActivities.slice(0, 2).map((item, index) => (
                 <div key={index} className="flex flex-col sm:flex-row sm:justify-between">
@@ -114,14 +114,14 @@ const Index = () => {
         </Card>
 
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/settings", "அமைப்புகள்")}>
-          <CardHeader className="pb-2 p-4">
+          <CardHeader className="pb-2 p-3">
             <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
               <UserRound className="mr-2 text-primary" size={24} />
               சுயவிவரம்
             </CardTitle>
             <CardDescription className="text-lg">உங்கள் தகவல்</CardDescription>
           </CardHeader>
-          <CardContent className="p-4">
+          <CardContent className="p-3">
             <div className="flex flex-col space-y-1">
               <div className="flex justify-between">
                 <span className="text-lg font-medium">அடுத்த சந்திப்பு</span>
@@ -138,18 +138,18 @@ const Index = () => {
 
       <section>
         <Card className="accessible-card">
-          <CardHeader className="p-4">
+          <CardHeader className="p-3">
             <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
               <Calendar className="mr-2 text-primary" size={24} />
               இன்றைய அட்டவணை
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-4">
-            <div className="space-y-3">
+          <CardContent className="p-3">
+            <div className="space-y-2">
               {todayActivities.map((item, index) => (
                 <div 
                   key={index} 
-                  className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-3 bg-secondary rounded-xl"
+                  className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-2 bg-secondary rounded-xl"
                 >
                   <span className="text-lg font-semibold">{item.time}</span>
                   <span className="text-lg mt-1 xs:mt-0">{item.activity}</span>
@@ -160,10 +160,10 @@ const Index = () => {
         </Card>
       </section>
 
-      <section className="flex justify-center mt-8">
+      <section className="flex justify-center mt-4">
         <Button 
           size="lg" 
-          className="accessible-button bg-destructive hover:bg-destructive/90 text-white text-lg p-5 h-auto" 
+          className="accessible-button bg-destructive hover:bg-destructive/90 text-white text-lg p-4 h-auto" 
           onClick={() => navigateWithAnnouncement("/emergency", "அவசர உதவி")}
         >
           <Bell className="mr-2" size={20} />
