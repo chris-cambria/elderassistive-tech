@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Calendar, Clock, Pills, Check, X, Plus, Volume2 } from "lucide-react";
+import { Bell, Calendar, Clock, Pill, Check, X, Plus, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Alerts = () => {
@@ -173,7 +173,7 @@ const Alerts = () => {
   // Helper function to get icon for reminder type
   const getTypeIcon = (type: string) => {
     switch(type) {
-      case "medication": return <Pills className="h-6 w-6 text-blue-500" />;
+      case "medication": return <Pill className="h-6 w-6 text-blue-500" />;
       case "appointment": return <Calendar className="h-6 w-6 text-violet-500" />;
       case "activity": return <Clock className="h-6 w-6 text-green-500" />;
       case "social": return <Volume2 className="h-6 w-6 text-amber-500" />;

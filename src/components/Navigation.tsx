@@ -6,6 +6,51 @@ import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Add TypeScript declarations for the Web Speech API
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: SpeechRecognitionErrorEvent) => void;
+  onstart: () => void;
+  onend: () => void;
+}
+
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string;
+}
+
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionResult {
+  readonly length: number;
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal: boolean;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+
+// Add declarations for browser-specific implementations
+declare global {
+  interface Window {
+    SpeechRecognition?: new () => SpeechRecognition;
+    webkitSpeechRecognition?: new () => SpeechRecognition;
+  }
+}
+
 const Navigation = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -47,8 +92,12 @@ const Navigation = () => {
       }
 
       // Initialize speech recognition
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
+      const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognitionAPI) {
+        throw new Error("Speech recognition not supported");
+      }
+      
+      const recognition = new SpeechRecognitionAPI();
       
       recognition.continuous = false;
       recognition.interimResults = false;

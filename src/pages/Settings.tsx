@@ -15,7 +15,8 @@ import {
   Eye,
   Mic,
   Share2,
-  ChevronRight
+  ChevronRight,
+  X
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -400,7 +401,7 @@ const Settings = () => {
   );
 };
 
-// Add missing components
+// Add Plus component
 const Plus = ({ size = 24, className = "" }) => {
   return (
     <svg
