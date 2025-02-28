@@ -215,7 +215,7 @@ const Alerts = () => {
   };
 
   return (
-    <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12">
+    <div className="animate-fade-in space-y-8 max-w-5xl mx-auto pb-12 px-4">
       <section className="text-center md:text-left">
         <h1 className="text-4xl-accessible font-bold tracking-tight">அறிவிப்புகள் & நினைவூட்டல்கள்</h1>
         <p className="text-2xl-accessible text-muted-foreground mt-2">
@@ -224,15 +224,15 @@ const Alerts = () => {
       </section>
 
       <Card className="accessible-card">
-        <CardHeader>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+        <CardHeader className="p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <CardTitle className="text-2xl-accessible">குரல் நினைவூட்டல்கள்</CardTitle>
               <CardDescription className="text-xl mt-1">
                 குரல் அறிவிப்புகளை இயக்கவும் அல்லது முடக்கவும்
               </CardDescription>
             </div>
-            <div className="flex items-center space-x-2 mt-4 sm:mt-0">
+            <div className="flex items-center space-x-4 mt-2 sm:mt-0">
               <Switch 
                 id="voice-mode" 
                 checked={voiceRemindersEnabled}
@@ -247,18 +247,18 @@ const Alerts = () => {
       </Card>
 
       <section className="space-y-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <h2 className="text-2xl-accessible font-semibold">இன்றைய நினைவூட்டல்கள்</h2>
           <Button 
             onClick={addDemoReminder}
-            className="text-lg"
+            className="text-lg px-6 py-2"
           >
             <Plus className="mr-2 h-5 w-5" />
             நினைவூட்டல் சேர்
           </Button>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-6">
           {reminders.map(reminder => (
             <Card 
               key={reminder.id} 
@@ -268,28 +268,28 @@ const Alerts = () => {
               }`}
             >
               <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="flex items-start space-x-4">
-                    <div className="mt-1">
+                    <div className="mt-1 flex-shrink-0">
                       {getTypeIcon(reminder.type)}
                     </div>
-                    <div>
-                      <h3 className={`text-2xl font-medium ${reminder.completed ? 'line-through' : ''}`}>
+                    <div className="flex-grow min-w-0">
+                      <h3 className={`text-2xl font-medium mb-2 ${reminder.completed ? 'line-through' : ''}`}>
                         {reminder.title}
                       </h3>
-                      <div className="flex flex-wrap items-center space-x-3 mt-1">
+                      <div className="flex flex-wrap items-center gap-3 mb-2">
                         <span className="text-xl text-muted-foreground">{reminder.time}</span>
                         {getTypeBadge(reminder.type)}
                       </div>
-                      <p className="text-xl mt-2">{reminder.details}</p>
+                      <p className="text-xl mt-2 break-words">{reminder.details}</p>
                     </div>
                   </div>
                   
-                  <div className="flex space-x-2 mt-4 sm:mt-0">
+                  <div className="flex space-x-4 mt-4 lg:mt-0 justify-end">
                     <Button
                       variant={reminder.completed ? "outline" : "default"}
                       size="icon"
-                      className="h-12 w-12"
+                      className="h-14 w-14"
                       onClick={() => toggleReminderCompleted(reminder.id)}
                       title={reminder.completed ? "முடிக்கப்படாதது என குறிக்க" : "முடிக்கப்பட்டது என குறிக்க"}
                     >
@@ -298,7 +298,7 @@ const Alerts = () => {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-12 w-12"
+                      className="h-14 w-14"
                       onClick={() => toggleReminderActive(reminder.id)}
                       title={reminder.active ? "நினைவூட்டலை முடக்கு" : "நினைவூட்டலை இயக்கு"}
                     >
