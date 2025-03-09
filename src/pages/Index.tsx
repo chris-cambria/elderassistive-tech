@@ -64,72 +64,72 @@ const Index = () => {
   };
 
   return (
-    <div className="animate-fade-in space-y-3 max-w-5xl mx-auto pb-4 px-1">
+    <div className="animate-fade-in space-y-4 max-w-5xl mx-auto pb-6 px-2">
       <section className="text-center md:text-left">
-        <h1 className="text-2xl md:text-4xl-accessible font-bold tracking-tight">{greeting}, {userName}</h1>
-        <p className="text-lg md:text-2xl-accessible text-muted-foreground">
+        <h1 className="text-3xl md:text-4xl-accessible font-bold tracking-tight">{greeting}, {userName}</h1>
+        <p className="text-xl md:text-2xl-accessible text-muted-foreground mt-1">
           உங்கள் தனிப்பட்ட டாஷ்போர்டிற்கு வரவேற்கிறோம்
         </p>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/health", "ஆரோக்கிய டாஷ்போர்ட்")}>
-          <CardHeader className="pb-1 p-2">
-            <CardTitle className="text-lg md:text-2xl-accessible flex items-center">
-              <HeartPulse className="mr-2 text-primary" size={22} />
+          <CardHeader className="pb-2 p-3">
+            <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
+              <HeartPulse className="mr-2 text-primary" size={24} />
               ஆரோக்கியம்
             </CardTitle>
-            <CardDescription className="text-md">உங்கள் உடல்நிலையை கண்காணித்தல்</CardDescription>
+            <CardDescription className="text-lg">உங்கள் உடல்நிலையை கண்காணித்தல்</CardDescription>
           </CardHeader>
-          <CardContent className="p-2">
+          <CardContent className="p-3">
             <div className="flex justify-between items-center">
               <div className="text-left">
-                <p className="text-md">இதய துடிப்பு</p>
-                <p className="text-xl md:text-3xl-accessible font-semibold">72 BPM</p>
+                <p className="text-lg">இதய துடிப்பு</p>
+                <p className="text-2xl md:text-3xl-accessible font-semibold">72 BPM</p>
               </div>
-              <Activity size={36} className="text-primary/80" />
+              <Activity size={40} className="text-primary/80" />
             </div>
           </CardContent>
         </Card>
 
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/alerts", "அறிவிப்புகள் & நினைவூட்டல்கள்")}>
-          <CardHeader className="pb-1 p-2">
-            <CardTitle className="text-lg md:text-2xl-accessible flex items-center">
-              <Bell className="mr-2 text-primary" size={22} />
+          <CardHeader className="pb-2 p-3">
+            <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
+              <Bell className="mr-2 text-primary" size={24} />
               நினைவூட்டல்கள்
             </CardTitle>
-            <CardDescription className="text-md">இன்றைய அட்டவணை</CardDescription>
+            <CardDescription className="text-lg">இன்றைய அட்டவணை</CardDescription>
           </CardHeader>
-          <CardContent className="p-2">
-            <div className="space-y-1">
+          <CardContent className="p-3">
+            <div className="space-y-2">
               {todayActivities.slice(0, 2).map((item, index) => (
                 <div key={index} className="flex flex-col sm:flex-row sm:justify-between">
-                  <span className="text-md font-medium">{item.time}</span>
-                  <span className="text-md sm:text-right">{item.activity}</span>
+                  <span className="text-lg font-medium">{item.time}</span>
+                  <span className="text-lg sm:text-right">{item.activity}</span>
                 </div>
               ))}
-              <p className="text-sm text-muted-foreground italic">+3 மேலும் செயல்பாடுகள்</p>
+              <p className="text-md text-muted-foreground italic">+3 மேலும் செயல்பாடுகள்</p>
             </div>
           </CardContent>
         </Card>
 
         <Card className="accessible-card" onClick={() => navigateWithAnnouncement("/settings", "அமைப்புகள்")}>
-          <CardHeader className="pb-1 p-2">
-            <CardTitle className="text-lg md:text-2xl-accessible flex items-center">
-              <UserRound className="mr-2 text-primary" size={22} />
+          <CardHeader className="pb-2 p-3">
+            <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
+              <UserRound className="mr-2 text-primary" size={24} />
               சுயவிவரம்
             </CardTitle>
-            <CardDescription className="text-md">உங்கள் தகவல்</CardDescription>
+            <CardDescription className="text-lg">உங்கள் தகவல்</CardDescription>
           </CardHeader>
-          <CardContent className="p-2">
+          <CardContent className="p-3">
             <div className="flex flex-col space-y-1">
               <div className="flex justify-between">
-                <span className="text-md font-medium">அடுத்த சந்திப்பு</span>
-                <span className="text-md">மே 15</span>
+                <span className="text-lg font-medium">அடுத்த சந்திப்பு</span>
+                <span className="text-lg">மே 15</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-md font-medium">மருத்துவர்</span>
-                <span className="text-md">டாக்டர் ஜான்சன்</span>
+                <span className="text-lg font-medium">மருத்துவர்</span>
+                <span className="text-lg">டாக்டர் ஜான்சன்</span>
               </div>
             </div>
           </CardContent>
@@ -138,21 +138,21 @@ const Index = () => {
 
       <section>
         <Card className="accessible-card">
-          <CardHeader className="p-2">
-            <CardTitle className="text-lg md:text-2xl-accessible flex items-center">
-              <Calendar className="mr-2 text-primary" size={22} />
+          <CardHeader className="p-3">
+            <CardTitle className="text-xl md:text-2xl-accessible flex items-center">
+              <Calendar className="mr-2 text-primary" size={24} />
               இன்றைய அட்டவணை
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-2">
-            <div className="space-y-1">
+          <CardContent className="p-3">
+            <div className="space-y-2">
               {todayActivities.map((item, index) => (
                 <div 
                   key={index} 
-                  className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-1.5 bg-secondary rounded-xl"
+                  className="flex flex-col xs:flex-row justify-between items-start xs:items-center p-2 bg-secondary rounded-xl"
                 >
-                  <span className="text-md font-semibold">{item.time}</span>
-                  <span className="text-md mt-0.5 xs:mt-0">{item.activity}</span>
+                  <span className="text-lg font-semibold">{item.time}</span>
+                  <span className="text-lg mt-1 xs:mt-0">{item.activity}</span>
                 </div>
               ))}
             </div>
@@ -160,13 +160,13 @@ const Index = () => {
         </Card>
       </section>
 
-      <section className="flex justify-center mt-3">
+      <section className="flex justify-center mt-4">
         <Button 
           size="lg" 
-          className="accessible-button bg-destructive hover:bg-destructive/90 text-white text-md p-3 h-auto" 
+          className="accessible-button bg-destructive hover:bg-destructive/90 text-white text-lg p-4 h-auto" 
           onClick={() => navigateWithAnnouncement("/emergency", "அவசர உதவி")}
         >
-          <Bell className="mr-2" size={18} />
+          <Bell className="mr-2" size={20} />
           அவசர உதவி
         </Button>
       </section>

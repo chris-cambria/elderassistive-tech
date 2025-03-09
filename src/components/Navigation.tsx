@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Home, HeartPulse, Bell, Settings, Menu, X } from "lucide-react";
@@ -5,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Add TypeScript declarations for the Web Speech API
 interface SpeechRecognition extends EventTarget {
   continuous: boolean;
   interimResults: boolean;
@@ -41,6 +43,7 @@ interface SpeechRecognitionAlternative {
   confidence: number;
 }
 
+// Add declarations for browser-specific implementations
 declare global {
   interface Window {
     SpeechRecognition?: new () => SpeechRecognition;
@@ -78,6 +81,7 @@ const Navigation = () => {
 
   const startListening = () => {
     try {
+      // Check if the browser supports speech recognition
       if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
         toast({
           title: "குரல் வழிசெலுத்தல் கிடைக்கவில்லை",
@@ -87,6 +91,7 @@ const Navigation = () => {
         return;
       }
 
+      // Initialize speech recognition
       const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognitionAPI) {
         throw new Error("Speech recognition not supported");
@@ -96,7 +101,7 @@ const Navigation = () => {
       
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.lang = 'ta-IN';
+      recognition.lang = 'ta-IN'; // Setting to Tamil language
       
       recognition.onstart = () => {
         setIsListening(true);
@@ -148,6 +153,7 @@ const Navigation = () => {
   const processVoiceCommand = (command: string) => {
     console.log('Voice command received:', command);
     
+    // Handle navigation commands - using Tamil words
     if (command.includes('செல்') || command.includes('திற') || command.includes('காட்டு')) {
       if (command.includes('முகப்பு') || command.includes('முதல்')) {
         navigate('/');
@@ -186,6 +192,7 @@ const Navigation = () => {
       }
     }
     
+    // Handle emergency command
     if (command.includes('அவசர') || command.includes('உதவி')) {
       toast({
         title: "அவசர உதவி",
@@ -196,6 +203,7 @@ const Navigation = () => {
       return;
     }
 
+    // If no command matched
     toast({
       title: "குரல் கட்டளை அங்கீகரிக்கப்படவில்லை",
       description: "செல்லுபடியாகும் கட்டளையுடன் மீண்டும் முயற்சிக்கவும்.",
@@ -203,6 +211,7 @@ const Navigation = () => {
     });
   };
 
+  // Clean up on unmount
   useEffect(() => {
     return () => {
       if (recognitionRef.current) {
@@ -213,15 +222,16 @@ const Navigation = () => {
 
   return (
     <>
+      {/* Mobile header with menu button */}
       {isMobile && (
-        <div className="fixed top-0 left-0 right-0 bg-background z-50 flex items-center justify-between p-1 border-b">
+        <div className="fixed top-0 left-0 right-0 bg-background z-50 flex items-center justify-between p-2 border-b">
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={toggleSidebar}
             className="text-2xl"
           >
-            {isSidebarOpen ? <X size={22} /> : <Menu size={22} />}
+            {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
           <h1 className="text-xl font-semibold truncate">எல்டர்அசிஸ்ட்</h1>
           <Button
@@ -231,15 +241,16 @@ const Navigation = () => {
             className={`voice-indicator ${isListening ? 'listening' : ''}`}
             aria-label={isListening ? "குரல் வழிசெலுத்தலை நிறுத்து" : "குரல் வழிசெலுத்தலைத் தொடங்கு"}
           >
-            {isListening ? <Mic size={18} className="text-white" /> : <MicOff size={18} />}
+            {isListening ? <Mic size={20} className="text-white" /> : <MicOff size={20} />}
           </Button>
         </div>
       )}
       
+      {/* Sidebar for navigation */}
       <div 
-        className={`fixed left-0 top-0 bottom-0 bg-background border-r w-64 p-3 z-40 transition-transform duration-300 flex flex-col ${
+        className={`fixed left-0 top-0 bottom-0 bg-background border-r w-64 p-4 z-40 transition-transform duration-300 flex flex-col ${
           isMobile ? (isSidebarOpen ? 'translate-x-0' : '-translate-x-full') : 'translate-x-0'
-        } ${isMobile ? 'mt-8' : ''}`}
+        } ${isMobile ? 'mt-10' : ''}`}
       >
         {!isMobile && (
           <div className="mb-4 flex items-center justify-between">
@@ -251,7 +262,7 @@ const Navigation = () => {
               className={`voice-indicator ${isListening ? 'listening' : ''}`}
               aria-label={isListening ? "குரல் வழிசெலுத்தலை நிறுத்து" : "குரல் வழிசெலுத்தலைத் தொடங்கு"}
             >
-              {isListening ? <Mic size={18} className="text-white" /> : <MicOff size={18} />}
+              {isListening ? <Mic size={20} className="text-white" /> : <MicOff size={20} />}
             </Button>
           </div>
         )}
@@ -288,8 +299,9 @@ const Navigation = () => {
         </div>
       </div>
       
+      {/* Main content area with proper spacing for sidebar */}
       <main className={`transition-all duration-300 min-h-screen ${
-        isMobile ? 'pt-8 px-1' : 'ml-64 p-3'
+        isMobile ? 'pt-10 px-2' : 'ml-64 p-4'
       }`}>
         {/* This is where your page content will go */}
       </main>
